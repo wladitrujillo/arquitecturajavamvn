@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<%@ page import="java.util.List" %>
+<%@ page import="java.util.List"%>
 <%@page import="com.arquitecturajava.Libro"%>
+<%@ page import="com.arquitecturajava.DataBaseException"%>
 <!DOCTYPE html
 PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "DTD/xhtml1-strict.dtd">
@@ -8,40 +9,49 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 <head>
 <link rel="stylesheet" type="text/css" href="css/formato.css" />
 <script type="text/javascript" src="js/validacion.js">
+	
 </script>
 <title>Formulario Libro</title>
 </head>
 <body>
-<form id="formularioInsercion" action="InsertarLibro.jsp">
-<fieldset>
-<legend>Formulario alta libro</legend>
-<p><label for="isbn">ISBN:</label> 
-<input type="text" id="isbn" name="isbn" /></p>
-<p><label for="titulo">Titulo:</label> <input type="text" id="titulo" name="titulo" /></p>
-<p><label for="categoria">Categoria :</label> 
+	<form id="formularioInsercion" action="InsertarLibro.jsp">
+		<fieldset>
+			<legend>Formulario alta libro</legend>
+			<p>
+				<label for="isbn">ISBN:</label> <input type="text" id="isbn"
+					name="isbn" />
+			</p>
+			<p>
+				<label for="titulo">Titulo:</label> <input type="text" id="titulo"
+					name="titulo" />
+			</p>
+			<p>
+				<label for="categoria">Categoria :</label> <select name="categoria">
 
-<select name="categoria">
+
+					<%
+						List<String> listaDeCategorias = null;
+
+						listaDeCategorias = Libro.buscarTodasLasCategorias();
+
+						for (String categoria : listaDeCategorias) {
+					%>
+
+					<option value="<%=categoria%>"><%=categoria%></option>
+
+					<%
+						}
+					%>
 
 
-<% 
-List<String> listaDeCategorias=null;
 
-	listaDeCategorias=Libro.buscarTodasLasCategorias();
-	 
-	 for(String categoria:listaDeCategorias) { %>
-	 
-	   <option value="<%=categoria%>"><%=categoria%></option>
-		
- 	<% } %>
- 	
- 	
- 	
-	</select>
-<br/>
-</p>
-<p><input type="submit" value="Insertar" /></p>
-</fieldset>
-</form>
+				</select> <br />
+			</p>
+			<p>
+				<input type="submit" value="Insertar" />
+			</p>
+		</fieldset>
+	</form>
 
 </body>
 </html>

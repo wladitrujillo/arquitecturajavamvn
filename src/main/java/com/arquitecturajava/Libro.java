@@ -2,13 +2,12 @@ package com.arquitecturajava;
 
 import java.util.List;
 
-/**
- * @author      cecilio alvarez caules contacto@arquitecturajava.com
- * @version     1.0                        
- */
-
 public class Libro {
 
+	/**
+	 * @author      cecilio alvarez caules contacto@arquitecturajava.com
+	 * @version     1.0                        
+	 */
 	private String isbn;
 	private String titulo;
 	private String categoria;
@@ -53,7 +52,7 @@ public class Libro {
 		this.categoria = categoria;
 	}
 
-	public static List<String> buscarTodasLasCategorias() {
+	public static List<String> buscarTodasLasCategorias()  {
 
 		String consultaSQL = "select distinct(categoria) as categoria from Libros";
 		DataBaseHelper<String> helper = new DataBaseHelper<String>();
@@ -73,7 +72,7 @@ public class Libro {
 
 	}
 
-	public void borrar() {
+	public void borrar(){
 
 		String consultaSQL = "delete from Libros where isbn='" + this.isbn
 				+ "'";
@@ -86,13 +85,12 @@ public class Libro {
 
 		String consultaSQL = "update  Libros  set titulo='" + this.titulo
 				+ "', categoria='" + categoria + "' where isbn='" + isbn + "'";
-		
 		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
 		helper.modificarRegistro(consultaSQL);
 
 	}
 
-	public static List<Libro> buscarTodos() {
+	public static List<Libro> buscarTodos() throws DataBaseException {
 
 		String consultaSQL = "select isbn,titulo,categoria from Libros";
 		DataBaseHelper<Libro> helper = new DataBaseHelper<Libro>();
@@ -103,7 +101,7 @@ public class Libro {
 
 	}
 
-	public static Libro buscarPorClave(String isbn) {
+	public static Libro buscarPorClave(String isbn)  {
 
 		String consultaSQL = "select isbn,titulo,categoria from Libros where isbn='"
 				+ isbn + "'";
@@ -113,7 +111,7 @@ public class Libro {
 		return listaDeLibros.get(0);
 	}
 
-	public static List<Libro> buscarPorCategoria(String categoria) {
+	public static List<Libro> buscarPorCategoria(String categoria)  {
 
 		String consultaSQL = "select isbn,titulo,categoria from Libros where categoria='"
 				+ categoria + "'";

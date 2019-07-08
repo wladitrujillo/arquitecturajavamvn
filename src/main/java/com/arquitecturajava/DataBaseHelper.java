@@ -1,5 +1,6 @@
 package com.arquitecturajava;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -9,20 +10,18 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * @author      cecilio alvarez caules contacto@arquitecturajava.com
- * @version     1.0                        
- */
-
-
 public class DataBaseHelper<T> {
 
+	/**
+	 * @author      cecilio alvarez caules contacto@arquitecturajava.com
+	 * @version     1.0                        
+	 */
 	private static final String DRIVER = "com.mysql.jdbc.Driver";
 	private static final String URL = "jdbc:mysql://localhost:3306/arquitecturajava";
 	private static final String USUARIO = "root";
 	private static final String CLAVE = "java";
 
-	public int modificarRegistro(String consultaSQL) {
+	public int modificarRegistro(String consultaSQL)  {
 
 		Connection conexion = null;
 		Statement sentencia = null;
@@ -42,9 +41,11 @@ public class DataBaseHelper<T> {
 		} catch (ClassNotFoundException e) {
 
 			System.out.println("Error de acceso al driver" + e.getMessage());
+			throw new DataBaseException("Error de SQL",e);
 		} catch (SQLException e) {
 
 			System.out.println("Error de SQL" + e.getMessage());
+			throw new DataBaseException("Error de SQL",e);
 		} finally {
 
 			if (sentencia != null) {
@@ -66,65 +67,80 @@ public class DataBaseHelper<T> {
 	
 	
 
+	
 	@SuppressWarnings("unchecked")
-	public List<T> seleccionarRegistros(String consultaSQL,Class<T> clase) {
+	public List<T> seleccionarRegistros(String consultaSQL,Class<T> clase)   {
 
 		Connection conexion = null;
 		Statement sentencia = null;
 		ResultSet filas = null;
 		ArrayList<T> listaDeObjetos=new ArrayList<T>();
 		
-		
-		try {
-			Class.forName(DRIVER);
 
-			conexion = DriverManager.getConnection(URL, USUARIO, CLAVE);
-
-			sentencia = conexion.createStatement();
-
-			filas = sentencia.executeQuery(consultaSQL);
-
-			
-			
-			while (filas.next()) {
-	
-				T objeto=(T) Class.forName(clase.getName()).newInstance();
+			try {
+				Class.forName(DRIVER);
+				conexion = DriverManager.getConnection(URL, USUARIO, CLAVE);
+				sentencia = conexion.createStatement();
+				filas = sentencia.executeQuery(consultaSQL);
 				
+				while (filas.next()) {
+
+					T objeto=(T) clase.newInstance();
 					
-				Method[] metodos=objeto.getClass().getDeclaredMethods();
-				
-			
-				for (int i=0;i<metodos.length;i++) {
+							
+					Method[] metodos=objeto.getClass().getDeclaredMethods();
 					
-	
-					if (metodos[i].getName().startsWith("set") ) {
+						for (int i=0;i<metodos.length;i++) {
 						
+
+						if (metodos[i].getName().startsWith("set") ) {
+							
+							metodos[i].invoke(objeto, filas.getString(metodos[i].getName().substring(3)));
+						}
 						
-						metodos[i].invoke(objeto, filas.getString(metodos[i].getName().substring(3)));
-					}
+						if (objeto.getClass().getName().equals("java.lang.String")) {
+							
+							objeto=(T)filas.getString(1);
+							
+						}
+						
 					
-					if (objeto.getClass().getName().equals("java.lang.String")) {
-						
-						
-						
-						objeto=(T)filas.getString(1);
 						
 					}
-					
-				
-					
+					listaDeObjetos.add(objeto);
 				}
-				listaDeObjetos.add(objeto);
-			}
-		
-			
-			
-		
-			} catch (Exception e) {
+			} catch (SecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new DataBaseException("Error de seguridad",e);
+			} catch (IllegalArgumentException e) {
+				e.printStackTrace();
+				throw new DataBaseException("Error en el tipo de argumentos",e);
+	
+			} catch (ClassNotFoundException e) {
 				
-				
-				System.out.println("Error seleccionano registros" + e.getMessage());
+				e.printStackTrace();
+				throw new DataBaseException("Error no se encuentra la clase",e);
+		
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+			
+				throw new DataBaseException("Error de SQL",e);
+			} catch (InstantiationException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new DataBaseException("Error de Instanciacion",e);
+			
+			} catch (IllegalAccessException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				throw new DataBaseException("Error de acceso",e);
+			} catch (InvocationTargetException e) {
+				// TODO Auto-generated catch block
+				throw new DataBaseException("Error de Invocacion",e);
+			
 			}
+			
 		
 		return listaDeObjetos;
 
