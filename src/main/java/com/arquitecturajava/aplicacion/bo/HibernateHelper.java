@@ -7,13 +7,13 @@ import org.hibernate.SessionFactory;
 
 import org.hibernate.cfg.Configuration;
 
-
+/**
+ * @author      cecilio alvarez caules contacto@arquitecturajava.com
+ * @version     1.0                        
+ */
 public class HibernateHelper {
 
-	/**
-	 * @author      cecilio alvarez caules contacto@arquitecturajava.com
-	 * @version     1.0                        
-	 */
+
     private static final SessionFactory sessionFactory = buildSessionFactory();
 
 
@@ -28,8 +28,6 @@ public class HibernateHelper {
         }
 
         catch (Throwable ex) {
-
-         
 
             System.err.println("Error creando una factoria de session." + ex);
 

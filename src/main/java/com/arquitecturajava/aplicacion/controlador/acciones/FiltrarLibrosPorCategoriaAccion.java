@@ -5,6 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.arquitecturajava.aplicacion.bo.Categoria;
 import com.arquitecturajava.aplicacion.bo.Libro;
 
 public class FiltrarLibrosPorCategoriaAccion extends Accion {
@@ -18,17 +19,18 @@ public class FiltrarLibrosPorCategoriaAccion extends Accion {
 			HttpServletResponse response) {
 		
 		List<Libro> listaDeLibros = null;
-		List<Libro> listaDeCategorias = Libro.buscarTodasLasCategorias();
-
+		List<Categoria> listaDeCategorias = Categoria.buscarTodos();
+	
 		if (request.getParameter("categoria") == null
 				|| request.getParameter("categoria").equals("seleccionar")) {
 
 			listaDeLibros = Libro.buscarTodos();
 
 		} else {
-
-			listaDeLibros = Libro.buscarPorCategoria(request
-					.getParameter("categoria"));
+			
+			Categoria categoriaSeleccionada= Categoria.buscarPorClave(Integer.parseInt(request.getParameter("categoria")));
+			
+			listaDeLibros = Libro.buscarPorCategoria(categoriaSeleccionada);
 
 		}
 		request.setAttribute("listaDeLibros", listaDeLibros);

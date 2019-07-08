@@ -14,11 +14,14 @@ import com.arquitecturajava.aplicacion.controlador.acciones.Accion;
  * @author      cecilio alvarez caules contacto@arquitecturajava.com
  * @version     1.0                        
  */
+
 public class ControladorLibros extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	
-	
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 

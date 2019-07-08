@@ -5,22 +5,22 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.arquitecturajava.aplicacion.bo.Libro;
+import com.arquitecturajava.aplicacion.bo.Categoria;
 
+/**
+ * @author      cecilio alvarez caules contacto@arquitecturajava.com
+ * @version     1.0                        
+ */
 public class FormularioInsertarLibroAccion extends Accion {
 
-	/**
-	 * @author      cecilio alvarez caules contacto@arquitecturajava.com
-	 * @version     1.0                        
-	 */
 	@Override
 	public String ejecutar(HttpServletRequest request,
 			HttpServletResponse response) {
 		
 		
-		List<Libro> listaDeCategorias = null;
+		List<Categoria> listaDeCategorias = null;
 
-		listaDeCategorias = Libro.buscarTodasLasCategorias();
+		listaDeCategorias = Categoria.buscarTodos();
 		request.setAttribute("listaDeCategorias", listaDeCategorias);
 		return "FormularioInsertarLibro.jsp";
 	}

@@ -3,12 +3,12 @@ package com.arquitecturajava.aplicacion.controlador.acciones;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * @author      cecilio alvarez caules contacto@arquitecturajava.com
+ * @version     1.0                        
+ */
 public abstract class Accion {
 
-	/**
-	 * @author      cecilio alvarez caules contacto@arquitecturajava.com
-	 * @version     1.0                        
-	 */
 	public abstract String ejecutar(HttpServletRequest request,
 			HttpServletResponse response);
 
