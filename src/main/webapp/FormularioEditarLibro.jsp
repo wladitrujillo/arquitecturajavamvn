@@ -15,33 +15,26 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 <title>Formulario Libro</title>
 </head>
 <body>
-	<form id="formularioEdicion" action="ModificarLibro.do">
-		<fieldset>
-			<legend>Formulario alta libro</legend>
-			<p>
-				<label for="isbn">ISBN:</label> <input type="text" id="isbn"
-					name="isbn" value="${libro.isbn}" />
-			</p>
-			<p>
-				<label for="titulo">Titulo:</label> <input type="text" id="titulo"
-					name="titulo" value="<c:out value="${libro.titulo}"/>" " />
-			</p>
-			<p>
-				<label for="categoria">Categoria :</label> <select name="categoria">
+<form id="formularioEdicion" action="ModificarLibro.do">
+<fieldset><legend>Formulario alta libro</legend>
+<p><label for="isbn">ISBN:</label> <input type="text" id="isbn"
+	name="isbn" value="${libro.isbn}" /></p>
+<p><label for="titulo">Titulo:</label> <input type="text"
+	id="titulo" name="titulo" value="<c:out value="${libro.titulo}"/>" " /></p>
+<p><label for="categoria">Categoria :</label> <select
+	name="categoria">
 
-					<c:forEach var="categoria" items="${listaDeCategorias}">
-						<option value="${categoria}">${categoria}</option>
-					</c:forEach>
+	<c:forEach var="categoria" items="${listaDeCategorias}">
+		<option value="${categoria}">${categoria}</option>
+	</c:forEach>
 
 
 
-				</select> <br />
-			</p>
-			<p>
-				<input type="submit" value="Salvar" />
-			</p>
-		</fieldset>
-	</form>
+</select> <br />
+</p>
+<p><input type="submit" value="Salvar" /></p>
+</fieldset>
+</form>
 
 </body>
 </html>
