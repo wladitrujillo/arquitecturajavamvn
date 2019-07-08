@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajava.aplicacion.bo.Categoria;
 import com.arquitecturajava.aplicacion.bo.Libro;
+
 /**
  * @author      cecilio alvarez caules contacto@arquitecturajava.com
  * @version     1.0                        

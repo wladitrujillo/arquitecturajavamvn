@@ -14,7 +14,6 @@ import com.arquitecturajava.aplicacion.controlador.acciones.Accion;
  * @author      cecilio alvarez caules contacto@arquitecturajava.com
  * @version     1.0                        
  */
-
 public class ControladorLibros extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

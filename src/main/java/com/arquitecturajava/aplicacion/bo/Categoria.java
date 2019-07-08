@@ -3,18 +3,19 @@ package com.arquitecturajava.aplicacion.bo;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.PersistenceException;
 import javax.persistence.Table;
-
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import javax.persistence.TypedQuery;
 
 /**
- * @author cecilio alvarez caules contacto@arquitecturajava.com
- * @version 1.0
+ * @author      cecilio alvarez caules contacto@arquitecturajava.com
+ * @version     1.0                        
  */
 @Entity
 @Table(name = "Categoria")
@@ -26,17 +27,16 @@ public class Categoria {
 	@Override
 	public int hashCode() {
 		return id;
-
+		
 	}
-
 	@Override
-	public boolean equals(Object o) {
-		int categoriaId = ((Categoria) o).getId();
-		return id == categoriaId;
-
+	public boolean equals (Object o) {
+		int categoriaId= ((Categoria)o).getId();
+		return id==categoriaId;
+		
 	}
-
-	@OneToMany
+	
+	@OneToMany(targetEntity = Libro.class)
 	@JoinColumn(name = "categoria")
 	private List<Libro> listaDeLibros;
 
@@ -64,19 +64,23 @@ public class Categoria {
 		this.descripcion = descripcion;
 	}
 
-	@SuppressWarnings("unchecked")
-	public static List<Categoria> buscarTodos() {
+	public  static List<Categoria> buscarTodos() {
 
-		SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
-		Session session = factoriaSession.openSession();
-		List<Categoria> listaDeCategorias = session.createQuery(" from Categoria categoria").list();
-		session.close();
-		return listaDeCategorias;
+		EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+		EntityManager manager = factoriaSession.createEntityManager();
 
-	}
+		List<Categoria> listaDeCategorias = null;
+		try {
 
-	public Categoria() {
-		super();
+			TypedQuery<Categoria> consulta = manager.createQuery(
+					"Select c from Categoria c", Categoria.class);
+
+			listaDeCategorias = consulta.getResultList();
+			return listaDeCategorias;
+		} finally {
+			manager.close();
+		}
+
 	}
 
 	public Categoria(int id) {
@@ -84,32 +88,63 @@ public class Categoria {
 		this.id = id;
 	}
 
+	public Categoria() {
+		super();
+	}
+
 	public Categoria(int id, String descripcion) {
 		super();
 		this.id = id;
 		this.descripcion = descripcion;
 	}
+	
+	public void insertar() {
 
-	public static Categoria buscarPorClave(int id) {
 
-		SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
-		Session session = factoriaSession.openSession();
-		Query consulta = session.createQuery(" from Categoria categoria where id=:id");
-		consulta.setInteger("id", id);
+		EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+		EntityManager manager = factoriaSession.createEntityManager();
 
-		Categoria categoria = (Categoria) consulta.uniqueResult();
-		session.close();
-		return categoria;
+		EntityTransaction tx = null;
+		try {
+
+			tx=manager.getTransaction();
+			tx.begin();	
+			manager.persist(this);
+			tx.commit();
+
+		} catch (PersistenceException e) {
+
+			manager.getTransaction().rollback();
+			throw e;
+		} finally {
+
+			manager.close();
+		}
 
 	}
 
-	public void insertar() {
 
-		SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
-		Session session = factoriaSession.openSession();
-		session.beginTransaction();
-		session.save(this);
-		session.getTransaction().commit();
+	public static  Categoria buscarPorClave(int id) {
+
+		EntityManagerFactory factoriaSession = JPAHelper.getJPAFactory();
+		EntityManager manager = factoriaSession.createEntityManager();
+
+		TypedQuery<Categoria> consulta = manager.createQuery(
+				"Select c from Categoria c where c.id=?1", Categoria.class);
+		
+		consulta.setParameter(1, id);
+		Categoria categoria=null;
+		
+		try {
+
+			categoria = consulta.getSingleResult();
+			
+			return categoria;
+
+		} finally {
+
+			manager.close();
+		}
 
 	}
 
