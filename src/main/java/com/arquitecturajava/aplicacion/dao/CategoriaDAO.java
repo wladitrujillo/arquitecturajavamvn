@@ -1,15 +1,12 @@
 package com.arquitecturajava.aplicacion.dao;
 
-import java.util.List;
-
 import com.arquitecturajava.aplicacion.bo.Categoria;
 
-public interface CategoriaDAO {
+/**
+ * @author      cecilio alvarez caules contacto@arquitecturajava.com
+ * @version     1.0                        
+ */
+public interface CategoriaDAO extends GenericDAO<Categoria,Integer> {
 
-	public abstract List<Categoria> buscarTodos();
-
-	public abstract void insertar(Categoria categoria);
-
-	public abstract Categoria buscarPorClave(int id);
-
+	
 }
