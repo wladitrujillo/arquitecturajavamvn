@@ -5,7 +5,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.arquitecturajava.aplicacion.Libro;
+import com.arquitecturajava.aplicacion.bo.Libro;
 
 public class FormularioInsertarLibroAccion extends Accion {
 
@@ -18,7 +18,7 @@ public class FormularioInsertarLibroAccion extends Accion {
 			HttpServletResponse response) {
 		
 		
-		List<String> listaDeCategorias = null;
+		List<Libro> listaDeCategorias = null;
 
 		listaDeCategorias = Libro.buscarTodasLasCategorias();
 		request.setAttribute("listaDeCategorias", listaDeCategorias);
