@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@page import="com.arquitecturajava.Libro"%>
-<%@ page import="com.arquitecturajava.DataBaseException"%>
+<%@page import="com.arquitecturajava.aplicacion.Libro"%>
+
 
 <%
 	String isbn = request.getParameter("isbn");
