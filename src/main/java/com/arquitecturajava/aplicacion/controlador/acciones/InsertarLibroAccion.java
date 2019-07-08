@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.arquitecturajava.aplicacion.bo.Categoria;
 import com.arquitecturajava.aplicacion.bo.Libro;
 import com.arquitecturajava.aplicacion.dao.LibroDAO;
+import com.arquitecturajava.aplicacion.dao.jpa.LibroDAOJPAImpl;
 
 /**
  * @author cecilio alvarez caules contacto@arquitecturajava.com
@@ -16,7 +17,7 @@ public class InsertarLibroAccion extends Accion {
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
 
-		LibroDAO libroDAO = new LibroDAO();
+		LibroDAO libroDAO = new LibroDAOJPAImpl();
 
 		String isbn = request.getParameter("isbn");
 		String titulo = request.getParameter("titulo");
