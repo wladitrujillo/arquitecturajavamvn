@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajava.aplicacion.bo.Categoria;
+import com.arquitecturajava.aplicacion.dao.CategoriaDAO;
 
 /**
  * @author cecilio alvarez caules contacto@arquitecturajava.com
@@ -14,12 +15,14 @@ public class InsertarCategoriaAccion extends Accion {
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
 
+		CategoriaDAO categoriaDAO = new CategoriaDAO();
+
 		String code = request.getParameter("code");
 		String descripcion = request.getParameter("descripcion");
 
 		Categoria categoria = new Categoria(Integer.parseInt(code), descripcion);
 
-		categoria.insertar();
+		categoriaDAO.insertar(categoria);
 
 		return "MostrarLibros.do";
 	}

@@ -5,31 +5,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajava.aplicacion.bo.Categoria;
 import com.arquitecturajava.aplicacion.bo.Libro;
-
+import com.arquitecturajava.aplicacion.dao.LibroDAO;
 
 /**
- * @author      cecilio alvarez caules contacto@arquitecturajava.com
- * @version     1.0                        
+ * @author cecilio alvarez caules contacto@arquitecturajava.com
+ * @version 1.0
  */
-public class InsertarLibroAccion extends Accion{
+public class InsertarLibroAccion extends Accion {
 
 	@Override
-	public String ejecutar(HttpServletRequest request,
-			HttpServletResponse response) {
+	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
+
+		LibroDAO libroDAO = new LibroDAO();
 
 		String isbn = request.getParameter("isbn");
 		String titulo = request.getParameter("titulo");
-		String categoria = request.getParameter("categoria");	
-		Categoria objetoCategoria= new Categoria(Integer.parseInt(categoria));
-		
+		String categoria = request.getParameter("categoria");
+		Categoria objetoCategoria = new Categoria(Integer.parseInt(categoria));
+
 		Libro libro = new Libro(isbn, titulo, objetoCategoria);
-		libro.insertar();
-		
-		
+		libroDAO.insertar(libro);
+
 		return "MostrarLibros.do";
 	}
 
-	
-	
-	
 }
