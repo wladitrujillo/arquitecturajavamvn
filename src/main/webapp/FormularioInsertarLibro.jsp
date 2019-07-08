@@ -23,9 +23,9 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 <select name="categoria">
 
 
-					<% 
+<% 
 List<String> listaDeCategorias=null;
-	
+
 	listaDeCategorias=Libro.buscarTodasLasCategorias();
 	 
 	 for(String categoria:listaDeCategorias) { %>

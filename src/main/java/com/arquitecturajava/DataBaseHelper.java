@@ -49,18 +49,12 @@ public class DataBaseHelper<T> {
 
 			if (sentencia != null) {
 
-				try {
-					sentencia.close();
-				} catch (SQLException e) {
-				}
-
+				try {sentencia.close();} catch (SQLException e) {}
+				
 			}
 			if (conexion != null) {
 
-				try {
-					conexion.close();
-				} catch (SQLException e) {
-				}
+				try {conexion.close();} catch (SQLException e) {}
 			}
 
 		}
@@ -69,14 +63,18 @@ public class DataBaseHelper<T> {
 
 	}
 
+	
+	
+
 	@SuppressWarnings("unchecked")
-	public List<T> seleccionarRegistros(String consultaSQL, Class<T> clase) {
+	public List<T> seleccionarRegistros(String consultaSQL,Class<T> clase) {
 
 		Connection conexion = null;
 		Statement sentencia = null;
 		ResultSet filas = null;
-		ArrayList<T> listaDeObjetos = new ArrayList<T>();
-
+		ArrayList<T> listaDeObjetos=new ArrayList<T>();
+		
+		
 		try {
 			Class.forName(DRIVER);
 
@@ -86,42 +84,54 @@ public class DataBaseHelper<T> {
 
 			filas = sentencia.executeQuery(consultaSQL);
 
-			while (filas.next()) {
-
-				T objeto = (T) Class.forName(clase.getName()).newInstance();
-
 			
-
-				Method[] metodos = objeto.getClass().getDeclaredMethods();
-
-				for (int i = 0; i < metodos.length; i++) {
-
-					if (metodos[i].getName().startsWith("set")) {
-
-						metodos[i].invoke(
-								objeto,
-								filas.getString(metodos[i].getName().substring(
-										3)));
+			
+			while (filas.next()) {
+	
+				T objeto=(T) Class.forName(clase.getName()).newInstance();
+				
+					
+				Method[] metodos=objeto.getClass().getDeclaredMethods();
+				
+			
+				for (int i=0;i<metodos.length;i++) {
+					
+	
+					if (metodos[i].getName().startsWith("set") ) {
+						
+						
+						metodos[i].invoke(objeto, filas.getString(metodos[i].getName().substring(3)));
 					}
-
+					
 					if (objeto.getClass().getName().equals("java.lang.String")) {
-
-						objeto = (T) filas.getString(1);
-
+						
+						
+						
+						objeto=(T)filas.getString(1);
+						
 					}
-
+					
+				
+					
 				}
 				listaDeObjetos.add(objeto);
 			}
-
-		} catch (Exception e) {
-
-			System.out.println("Error al seleccionar registros"
-					+ e.getMessage());
-		}
-
+		
+			
+			
+		
+			} catch (Exception e) {
+				
+				
+				System.out.println("Error seleccionano registros" + e.getMessage());
+			}
+		
 		return listaDeObjetos;
 
+	
 	}
+	
+	
 
-}
+
+	}

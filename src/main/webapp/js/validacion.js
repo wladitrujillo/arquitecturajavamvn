@@ -29,7 +29,7 @@ function generarEvento() {
 		 validacion();
 		 return false;
 	
-	};
+	}
 
 	
 }
