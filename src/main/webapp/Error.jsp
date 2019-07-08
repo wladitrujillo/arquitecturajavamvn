@@ -8,7 +8,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Ha ocurrido un error en la aplicacion :<%=exception.getMessage()%>
-	Error Interno:<%=exception.getCause().getMessage()%>
+	Ha ocurrido un error en la aplicacion :<%=exception%>
+	<%
+		if (exception.getCause() != null) {
+	%>
+	<%=exception.getCause().getMessage()%>
+	<%
+		}
+	%>
 </body>
 </html>

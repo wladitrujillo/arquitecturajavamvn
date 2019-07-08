@@ -14,7 +14,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 <title>Formulario Libro</title>
 </head>
 <body>
-	<form id="formularioInsercion" action="InsertarLibro.jsp">
+	<form id="formularioInsercion" action="InsertarLibro.do">
 		<fieldset>
 			<legend>Formulario alta libro</legend>
 			<p>
@@ -30,10 +30,7 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 
 
 					<%
-						List<String> listaDeCategorias = null;
-
-						listaDeCategorias = Libro.buscarTodasLasCategorias();
-
+						List<String> listaDeCategorias = (List<String>) request.getAttribute("listaDeCategorias");
 						for (String categoria : listaDeCategorias) {
 					%>
 

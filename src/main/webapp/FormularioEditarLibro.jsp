@@ -3,7 +3,7 @@
 <%@page import="com.arquitecturajava.aplicacion.Libro"%>
 
 <%
-	Libro libro = Libro.buscarPorClave(request.getParameter("isbn"));
+	Libro libro = (Libro) request.getAttribute("libro");
 %>
 <!DOCTYPE html
 PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
@@ -11,13 +11,15 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="es" lang="es">
 <head>
 <link rel="stylesheet" type="text/css" href="css/formato.css" />
-<script type="text/javascript" src="js/validacion.js">
+<script type="text/javascript" src="js/validacion.j
+	
+">
 	
 </script>
 <title>Formulario Libro</title>
 </head>
 <body>
-	<form id="formularioEdicion" action="ModificarLibro.jsp">
+	<form id="formularioEdicion" action="ModificarLibro.do">
 		<fieldset>
 			<legend>Formulario alta libro</legend>
 			<p>
@@ -31,18 +33,19 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 			<p>
 				<label for="categoria">Categoria :</label> <select name="categoria">
 
-
 					<%
-						List<String> listaDeCategorias = null;
+						@SuppressWarnings("unchecked")
 
-						listaDeCategorias = Libro.buscarTodasLasCategorias();
+						List<String> listaDeCategorias = (List<String>) request.getAttribute("listaDeCategorias");
 
 						for (String categoria : listaDeCategorias) {
 
 							if (libro.getCategoria().equals(categoria)) {
 					%>
 
-					<option value="<%=categoria%>" selected="selected"><%=categoria%></option>
+					<option value="<%=categoria%>" selected="selected">
+						<%=categoria%>
+					</option>
 
 					<%
 						} else {
@@ -54,8 +57,6 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 						}
 					%>
 
-
-
 				</select> <br />
 			</p>
 			<p>
@@ -63,6 +64,5 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 			</p>
 		</fieldset>
 	</form>
-
 </body>
 </html>
