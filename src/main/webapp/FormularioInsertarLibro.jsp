@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<%@ page import="java.util.List"%>
-<%@page import="com.arquitecturajava.aplicacion.Libro"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html
 PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "DTD/xhtml1-strict.dtd">
@@ -27,21 +25,9 @@ PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 			</p>
 			<p>
 				<label for="categoria">Categoria :</label> <select name="categoria">
-
-
-					<%
-						List<String> listaDeCategorias = (List<String>) request.getAttribute("listaDeCategorias");
-						for (String categoria : listaDeCategorias) {
-					%>
-
-					<option value="<%=categoria%>"><%=categoria%></option>
-
-					<%
-						}
-					%>
-
-
-
+					<c:forEach var="categoria" items="${listaDeCategorias}">
+						<option value="${categoria}">${categoria}</option>
+					</c:forEach>
 				</select> <br />
 			</p>
 			<p>

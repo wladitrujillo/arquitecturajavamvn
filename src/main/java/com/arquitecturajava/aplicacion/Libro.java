@@ -2,8 +2,6 @@ package com.arquitecturajava.aplicacion;
 
 import java.util.List;
 
-
-
 public class Libro {
 
 	

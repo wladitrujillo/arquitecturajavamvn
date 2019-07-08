@@ -88,7 +88,7 @@ public class ControladorLibros extends HttpServlet {
 
 		} else {
 
-		
+			System.out.println(request.getParameter("categoria"));
 			
 			List<Libro> listaDeLibros = null;
 			List<String> listaDeCategorias = Libro.buscarTodasLasCategorias();
