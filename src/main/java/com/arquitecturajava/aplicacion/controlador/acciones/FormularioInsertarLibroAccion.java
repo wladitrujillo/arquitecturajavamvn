@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajava.aplicacion.bo.Categoria;
 import com.arquitecturajava.aplicacion.dao.CategoriaDAO;
-import com.arquitecturajava.aplicacion.dao.CategoriaDAOFactory;
-import com.arquitecturajava.aplicacion.dao.jpa.CategoriaDAOJPAImpl;
+import com.arquitecturajava.aplicacion.dao.DAOAbstractFactory;
+import com.arquitecturajava.aplicacion.dao.DAOFactory;
 
 /**
  * @author cecilio alvarez caules contacto@arquitecturajava.com
@@ -19,7 +19,8 @@ public class FormularioInsertarLibroAccion extends Accion {
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
 
-		CategoriaDAO categoriaDAO = CategoriaDAOFactory.getInstance();
+		DAOFactory factoria = DAOAbstractFactory.getInstance();
+		CategoriaDAO categoriaDAO = factoria.getCategoriaDAO();
 
 		List<Categoria> listaDeCategorias = null;
 
