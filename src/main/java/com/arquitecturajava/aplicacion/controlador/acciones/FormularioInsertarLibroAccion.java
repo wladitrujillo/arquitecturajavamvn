@@ -6,9 +6,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajava.aplicacion.bo.Categoria;
-import com.arquitecturajava.aplicacion.dao.CategoriaDAO;
-import com.arquitecturajava.aplicacion.dao.DAOAbstractFactory;
-import com.arquitecturajava.aplicacion.dao.DAOFactory;
+import com.arquitecturajava.aplicacion.servicios.ServicioLibros;
+import com.arquitecturajava.aplicacion.servicios.impl.ServicioLibrosImpl;
 
 /**
  * @author cecilio alvarez caules contacto@arquitecturajava.com
@@ -19,12 +18,11 @@ public class FormularioInsertarLibroAccion extends Accion {
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
 
-		DAOFactory factoria = DAOAbstractFactory.getInstance();
-		CategoriaDAO categoriaDAO = factoria.getCategoriaDAO();
+		ServicioLibros servicioLibros = new ServicioLibrosImpl();
 
 		List<Categoria> listaDeCategorias = null;
 
-		listaDeCategorias = categoriaDAO.buscarTodos();
+		listaDeCategorias = servicioLibros.buscarCategoriasLibros();
 		request.setAttribute("listaDeCategorias", listaDeCategorias);
 		return "FormularioInsertarLibro.jsp";
 	}
