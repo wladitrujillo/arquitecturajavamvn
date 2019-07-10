@@ -34,7 +34,7 @@ public class GenericDAOHibernateImpl<T, Id extends Serializable> implements Gene
 	public List<T> buscarTodos() {
 		SessionFactory factoriaSession = HibernateHelper.getSessionFactory();
 		Session session = factoriaSession.openSession();
-		List<T> listaDeLibros = session.createQuery("from" + claseDePersistencia.getSimpleName() + " o").list();
+		List<T> listaDeLibros = session.createQuery("from " + claseDePersistencia.getSimpleName() + " o").list();
 		session.close();
 		return listaDeLibros;
 	}

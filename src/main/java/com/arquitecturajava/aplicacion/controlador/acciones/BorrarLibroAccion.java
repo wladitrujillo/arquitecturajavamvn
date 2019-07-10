@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajava.aplicacion.bo.Libro;
 import com.arquitecturajava.aplicacion.dao.LibroDAO;
+import com.arquitecturajava.aplicacion.dao.LibroDAOFactory;
 import com.arquitecturajava.aplicacion.dao.jpa.LibroDAOJPAImpl;
 
 /**
@@ -16,7 +17,7 @@ public class BorrarLibroAccion extends Accion {
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
 
-		LibroDAO libroDAO = new LibroDAOJPAImpl();
+		LibroDAO libroDAO = LibroDAOFactory.getInstance();
 
 		String isbn = request.getParameter("isbn");
 		Libro libro = new Libro(isbn);

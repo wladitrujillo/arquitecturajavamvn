@@ -5,7 +5,7 @@ import com.arquitecturajava.aplicacion.dao.jpa.LibroDAOJPAImpl;
 
 public class LibroDAOFactory {
 
-	public LibroDAO getInstance() {
+	public static LibroDAO getInstance() {
 		String tipo = "JPA";
 		if (tipo.equals("Hibernate")) {
 			return new LibroDAOHibernateImpl();

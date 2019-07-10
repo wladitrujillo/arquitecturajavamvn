@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.arquitecturajava.aplicacion.bo.Categoria;
 import com.arquitecturajava.aplicacion.dao.CategoriaDAO;
+import com.arquitecturajava.aplicacion.dao.CategoriaDAOFactory;
 import com.arquitecturajava.aplicacion.dao.jpa.CategoriaDAOJPAImpl;
 
 /**
@@ -18,7 +19,7 @@ public class FormularioInsertarLibroAccion extends Accion {
 	@Override
 	public String ejecutar(HttpServletRequest request, HttpServletResponse response) {
 
-		CategoriaDAO categoriaDAO = new CategoriaDAOJPAImpl();
+		CategoriaDAO categoriaDAO = CategoriaDAOFactory.getInstance();
 
 		List<Categoria> listaDeCategorias = null;
 

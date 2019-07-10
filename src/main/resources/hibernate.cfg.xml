@@ -19,9 +19,8 @@
 		<property name="dialect">org.hibernate.dialect.MySQL5Dialect</property>
 		<property name="show_sql">true</property>
 		<property name="hbm2ddl.auto">update</property>
-		<mapping class="com.arquitecturajava.aplicacion.Libro" />
-		<mapping class="com.arquitecturajava.aplicacion.Categoria" />
+		<mapping class="com.arquitecturajava.aplicacion.bo.Libro" />
+		<mapping class="com.arquitecturajava.aplicacion.bo.Categoria" />
 	</session-factory>
 
 </hibernate-configuration>
-
